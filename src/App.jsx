@@ -251,9 +251,9 @@ function App() {
         </List>
         {/* container to sort arrays 2*/}
         <div className="sort2 cursor-pointer bg-cardBg flex justify-center items-center gap-5 p-[10px] w-[100%] relative text-textCol2">
-          <span>All</span>
-          <span>Active</span>
-          <span>Completed</span>
+          <span onClick={showAll}>All</span>
+          <span onClick={showActive}>Active</span>
+          <span onClick={showCompleted}>Completed</span>
         </div>
       </Card>
     </div>
