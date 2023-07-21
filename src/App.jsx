@@ -127,6 +127,7 @@ function App() {
 
   // function that clears all todos that are completed
   function clearCompleted() {
+    setSelectState([true, false, false]);
     setInpArr((prevArr) => {
       let filterList;
 
