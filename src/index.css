@@ -6,11 +6,11 @@
 :root {
   /* light them- */
 
-  /* -Very-Light-Gray: hsl(0, 0%, 98%);
--Very-Light-Grayish-Blue: hsl(236, 33%, 92%);
--Light-Grayish-Blue: hsl(233, 11%, 84%);
--Dark-Grayish-Blue: hsl(236, 9%, 61%);
--Very-Dark-Grayish-Blue: hsl(235, 19%, 35%); */
+  -very-light-gray: hsl(0, 0%, 98%);
+  -very-light-grayish-blue: hsl(236, 33%, 92%);
+  -light-grayish-blue: hsl(233, 11%, 84%);
+  -dark-grayish-blue: hsl(236, 9%, 61%);
+  -very-dark-grayish-blue: hsl(235, 19%, 35%);
 
   /* ### Dark Theme */
 
@@ -25,36 +25,50 @@
 }
 
 .bg-img-container {
-  background-image: url(./images/bg-desktop-dark.jpg);
+  /* background-image: url(./images/bg-desktop-dark.jpg); */
   background-position: left;
   background-size: cover;
   background-repeat: no-repeat;
-
 }
-span{
-    background-color: linear-gradient(to right, hsl(192, 100%, 67%) , hsl(280, 87%, 65%));
+span {
+  background-color: linear-gradient(
+    to right,
+    hsl(192, 100%, 67%),
+    hsl(280, 87%, 65%)
+  );
+}
 
+.sortCont {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100px);
+  transition: 0.3s ease;
+}
+
+.sortCont.shown {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(0px);
 }
 
 .active {
   text-decoration: line-through;
-  color: hsl(233, 14%, 35%);
 }
 
-.selected{
-    color: hsl(220, 98%, 61%);
+.selected {
+  color: hsl(220, 98%, 61%);
 }
 
-.sort2{
-    display: none;
+.sort2 {
+  display: none;
 }
 
 @media (max-width: 500px) {
-    .sort1{
-        display: none;
-    }
+  .sort1 {
+    display: none;
+  }
 
-    .sort2{
-        display: flex;
-    }
+  .sort2 {
+    display: flex;
+  }
 }

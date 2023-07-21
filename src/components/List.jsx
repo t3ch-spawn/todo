@@ -5,7 +5,7 @@ function List(props) {
     <>
       {/* list items */}
       <div className="bg-cardBg">
-        <ul>{props.children}</ul>
+        <ul className="h-[0px]">{props.children}</ul>
       </div>
     </>
   );

@@ -4,7 +4,8 @@ import Header from "./components/Header";
 import List from "./components/List";
 import Input from "./components/Input";
 import "./App.css";
-import bgImg from "./images/bg-desktop-dark.jpg";
+import bgImgDark from "./images/bg-desktop-dark.jpg";
+import bgImgLight from "./images/bg-desktop-light.jpg";
 import cross from "./images/icon-cross.svg";
 import checked from "./images/icon-check.svg";
 
@@ -19,12 +20,41 @@ function App() {
   const [selectState, setSelectState] = useState([true, false, false]);
   const [inpArr, setInpArr] = useState([]);
   const [sortArr, setSortArr] = useState([]);
+  const [theme, setTheme] = useState("dark");
   let compList = [];
   const [itemsRem, setItemsRem] = useState(0);
+
+  // setting the theme
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [theme]);
 
   useEffect(() => {
     setSortArr(inpArr.slice());
   }, [inpArr]);
+
+  // getting the data from local storage
+  useEffect(() => {
+    const myData = window.localStorage.getItem("my_todo_data");
+    console.log(myData);
+    if (myData !== null) {
+      setInpArr(JSON.parse(myData));
+    }
+  }, []);
+
+  // storing the data in localstorage
+  useEffect(() => {
+    window.localStorage.setItem("my_todo_data", JSON.stringify(inpArr));
+  }, [inpArr, sortArr, inpObj]);
+
+  // function that handlesTheme
+  function handleTheme() {
+    setTheme(theme === "dark" ? "light" : "dark");
+  }
 
   // function that receives typed input from child component
   function inpAcceptor(receivedInp) {
@@ -201,15 +231,19 @@ function App() {
       <li
         key={i}
         data-id-num={i}
-        className="bg-cardBg flex justify-between items-center gap-3 py-[20px] px-[15px] w-[100%] relative"
+        className="dark:bg-cardBg bg-cardBgLight flex justify-between items-center gap-3 py-[20px] px-[15px] w-[100%] relative"
       >
         <span className="flex justify-start items-center w-[100%] gap-3">
           <span
             onClick={handleCompleted}
             style={{
-              backgroundImage : ` ${curr.completed ? 'linear-gradient(to right, hsl(192, 100%, 67%) , hsl(280, 87%, 65%))' : ''}`,
+              backgroundImage: ` ${
+                curr.completed
+                  ? "linear-gradient(to right, hsl(192, 100%, 67%) , hsl(280, 87%, 65%))"
+                  : ""
+              }`,
             }}
-            className="border-lineCol border-2 rounded-[50%] h-[25px] min-w-[25px] flex justify-center items-center cursor-pointer"
+            className="dark:border-lineCol border-lineColLight border-2 rounded-[50%] h-[25px] min-w-[25px] flex justify-center items-center cursor-pointer"
           >
             <img
               className="pointer-events-none"
@@ -217,7 +251,12 @@ function App() {
               alt=""
             />
           </span>
-          <p className={`text-textCol ${curr.completed && "active"} break-all`}>
+          <p
+            className={`dark:text-textCol ${
+              curr.completed &&
+              "dark:text-textColDim text-textColDimLight active"
+            } break-all`}
+          >
             {curr.input}
           </p>
         </span>
@@ -227,26 +266,32 @@ function App() {
           alt=""
           onClick={handleRemove}
         />
-        <hr className="absolute bottom-0 left-0 w-[100%] bg-lineCol border-none h-[1px]"/>
+        <hr className="absolute bottom-0 left-0 w-[100%] dark:bg-lineCol bg-lineColLight border-none h-[1px]" />
       </li>
     );
   });
 
   return (
-    <div className="flex w-[100%] justify-center items-center min-h-[100vh] font-body bg-mainBg">
+    <div className="flex w-[100%] justify-center items-center min-h-[100vh] font-body bg-mainBgLight dark:bg-mainBg">
       {/* backgrounnd image container */}
-      <div className="bg-img-container absolute left-0 top-0 w-[100%] h-[300px] ">
+      <div
+        style={{
+          backgroundImage:
+            theme === "dark" ? `url(${bgImgDark}) ` : `url(${bgImgLight}) `,
+        }}
+        className="bg-img-container absolute left-0 top-0 w-[100%] h-[300px] "
+      >
         <div className="absolute left-0 top-0 w-[100%] h-[100%]">
-          {/* <img src={bgImg} className="h-[100%] w-[100%]" alt="" /> */}
+          {/* <img className="h-[100%] w-[100%]" alt="" /> */}
         </div>
       </div>
       <Card>
-        <Header />
+        <Header onMyClick={handleTheme} theme={theme} />
         <Input inpPasser={inpAcceptor} onMyClick={showListItem} />
         <List>
           {actualList}
           {/* container for array information */}
-          <div className="bg-cardBg flex justify-between items-center gap-5 p-[10px] w-[100%] relative text-textCol2">
+          <div className={`sortCont ${itemsRem> 0 ? "shown": ""} dark:bg-cardBg bg-cardBgLight flex justify-between items-center gap-5 p-[10px] w-[100%] relative text-textCol2 `}>
             {/* number of items left */}
             <span>
               {itemsRem === 0
@@ -283,7 +328,7 @@ function App() {
           </div>
         </List>
         {/* container to sort arrays 2*/}
-        <div className="sort2 cursor-pointer bg-cardBg flex justify-center items-center gap-5 p-[10px] w-[100%] relative text-textCol2">
+        <div className="sort2 cursor-pointer dark:bg-cardBg bg-cardBgLight flex justify-center items-center gap-5 p-[10px] w-[100%] relative dark:text-textCol2 text-textColLight">
           <span
             className={`z-[3] ${selectState[0] && "selected"}`}
             onClick={showAll}

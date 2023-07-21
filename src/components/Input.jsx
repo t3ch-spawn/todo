@@ -8,8 +8,8 @@ function Input(props) {
   return (
     <>
       {/* todo input */}
-      <div className="  bg-cardBg flex justify-start items-center gap-3 py-[20px] px-[15px]">
-        <span className="border-lineCol border-2 rounded-[50%] flex justify-center items-center p-3"></span>
+      <div className="  dark:bg-cardBg bg-cardBgLight flex justify-start items-center gap-3 py-[20px] px-[15px]">
+        <span className="dark:border-lineCol border-lineColLight border-2 rounded-[50%] flex justify-center items-center p-3"></span>
         <input
           onChange={() => {
             props.inpPasser(myInp.current.value);
@@ -20,7 +20,7 @@ function Input(props) {
               myInp.current.value = "";
             }
           }}
-          className="myInp bg-cardBg w-[90%] text-textCol pr-[10px] outline-none"
+          className="myInp dark:bg-cardBg bg-cardBgLight w-[90%] dark:text-textCol text-textColLight pr-[10px] outline-none"
           type="text"
           id="myInput"
           ref={myInp}
@@ -31,7 +31,7 @@ function Input(props) {
             myInp.current.value = "";
             props.onMyClick();
           }}
-          className="text-textCol cursor-pointer pr-[10px]"
+          className="dark:text-textCol text-textColLight cursor-pointer pr-[10px]"
         >
           add
         </span>
