@@ -11,6 +11,7 @@ export default {
         cardBg: "hsl(235, 24%, 19%)",
         textCol: "hsl(234, 39%, 85%)",
         textCol2: "hsl(234, 11%, 52%)",
+        brBlue: "hsl(220, 98%, 61%)",
       },
 
       screens: {

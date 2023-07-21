@@ -35,6 +35,10 @@
   text-decoration: line-through;
 }
 
+.selected{
+    color: hsl(220, 98%, 61%);
+}
+
 .sort2{
     display: none;
 }

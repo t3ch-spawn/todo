@@ -16,6 +16,7 @@ function App() {
     closed: false,
     exist: true,
   });
+  const [selectState, setSelectState] = useState([true, false, false]);
   const [inpArr, setInpArr] = useState([]);
   const [sortArr, setSortArr] = useState([]);
   let compList = [];
@@ -44,12 +45,16 @@ function App() {
 
   // function that sets array of inputs and shows it
   function showListItem() {
+    setSelectState([true, false, false]);
+
     setInpArr((prev) => {
       if (inpObj.input === "") {
         alert("please put in a to-do");
-        setItemsRem(prev.filter((curr)=>{
-          return curr.completed === false
-        }).length)
+        setItemsRem(
+          prev.filter((curr) => {
+            return curr.completed === false;
+          }).length
+        );
         return [...prev];
       } else {
         return [inpObj, ...prev];
@@ -137,6 +142,7 @@ function App() {
 
   // function that shows all todos that are not completed, using a copy array
   function showActive() {
+    setSelectState([false, true, false]);
     setSortArr(inpArr.slice());
 
     setSortArr((prevArr) => {
@@ -155,6 +161,8 @@ function App() {
   // function that shows all todos available, using a copy array
 
   function showAll() {
+    setSelectState([true, false, false]);
+
     setSortArr(inpArr.slice());
     setSortArr((prevArr) => {
       let filterList;
@@ -171,6 +179,8 @@ function App() {
 
   // function that shows all todos that are completed, using a copy array
   function showCompleted() {
+    setSelectState([false, false, true]);
+
     setSortArr(inpArr.slice());
     setSortArr((prevArr) => {
       let filterList;
@@ -241,9 +251,24 @@ function App() {
             </span>
             {/* container to sort arrays 1*/}
             <div className="sort1 flex gap-2 cursor-pointer">
-              <span onClick={showAll}>All</span>
-              <span onClick={showActive}>Active</span>
-              <span onClick={showCompleted}>Completed</span>
+              <span
+                className={` ${selectState[0] && "selected"}`}
+                onClick={showAll}
+              >
+                All
+              </span>
+              <span
+                className={` ${selectState[1] && "selected"}`}
+                onClick={showActive}
+              >
+                Active
+              </span>
+              <span
+                className={` ${selectState[2] && "selected"}`}
+                onClick={showCompleted}
+              >
+                Completed
+              </span>
             </div>
 
             {/* clear complelted */}
