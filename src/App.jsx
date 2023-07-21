@@ -47,6 +47,9 @@ function App() {
     setInpArr((prev) => {
       if (inpObj.input === "") {
         alert("please put in a to-do");
+        setItemsRem(prev.filter((curr)=>{
+          return curr.completed === false
+        }).length)
         return [...prev];
       } else {
         return [inpObj, ...prev];

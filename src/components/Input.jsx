@@ -14,6 +14,12 @@ function Input(props) {
           onChange={() => {
             props.inpPasser(myInp.current.value);
           }}
+          onKeyDown={(event) => {
+            if (event.key == "Enter") {
+              props.onMyClick();
+              myInp.current.value = "";
+            }
+          }}
           className="myInp bg-cardBg w-[90%] text-textCol pr-[10px] outline-none"
           type="text"
           id="myInput"
