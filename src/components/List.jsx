@@ -4,8 +4,8 @@ function List(props) {
   return (
     <>
       {/* list items */}
-      <div className="bg-cardBg">
-        <ul className="h-[0px]">{props.children}</ul>
+      <div  className=" dark:bg-cardBg bg-cardBgLight">
+        <ul>{props.children}</ul>
       </div>
     </>
   );

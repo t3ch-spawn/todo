@@ -103,7 +103,7 @@ function App() {
 
   // function that checks a list item
   function handleCompleted(event) {
-    setInpArr((prevArr) => {
+    setSortArr((prevArr) => {
       prevArr.forEach((curr, i, arr) => {
         if (event.target.parentElement.parentElement.dataset.idNum == i) {
           curr.completed = !curr.completed;
@@ -291,7 +291,7 @@ function App() {
         <List>
           {actualList}
           {/* container for array information */}
-          <div className={`sortCont ${itemsRem> 0 ? "shown": ""} dark:bg-cardBg bg-cardBgLight flex justify-between items-center gap-5 p-[10px] w-[100%] relative text-textCol2 `}>
+          <div className={`sortCont ${inpArr.length > 0 ? "shown": ""} dark:bg-cardBg bg-cardBgLight flex justify-between items-center gap-5 p-[10px] w-[100%] relative text-textCol2 `}>
             {/* number of items left */}
             <span>
               {itemsRem === 0
@@ -328,7 +328,7 @@ function App() {
           </div>
         </List>
         {/* container to sort arrays 2*/}
-        <div className="sort2 cursor-pointer dark:bg-cardBg bg-cardBgLight flex justify-center items-center gap-5 p-[10px] w-[100%] relative dark:text-textCol2 text-textColLight">
+        <div className={` sort2 sortCont ${itemsRem> 0 ? "shown": ""} dark:bg-cardBg bg-cardBgLight flex justify-between items-center gap-5 p-[10px] w-[100%] relative text-textCol2 `}>
           <span
             className={`z-[3] ${selectState[0] && "selected"}`}
             onClick={showAll}
@@ -358,7 +358,7 @@ export default App;
 // component for the card
 function Card(props) {
   return (
-    <div className="flex flex-col gap-4 min-h-[400px] min-w-[100px] relative z-[2] m-[20px]">
+    <div className="flex flex-col gap-4 min-h-[400px] min-w-[400px] sm:min-w-[280px] relative z-[2] m-[20px]">
       {props.children}
     </div>
   );
