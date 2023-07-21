@@ -280,19 +280,19 @@ function App() {
         {/* container to sort arrays 2*/}
         <div className="sort2 cursor-pointer bg-cardBg flex justify-center items-center gap-5 p-[10px] w-[100%] relative text-textCol2">
           <span
-            className={` ${selectState[0] && "selected"}`}
+            className={`z-[3] ${selectState[0] && "selected"}`}
             onClick={showAll}
           >
             All
           </span>
           <span
-            className={` ${selectState[1] && "selected"}`}
+            className={`z-[3] ${selectState[1] && "selected"}`}
             onClick={showActive}
           >
             Active
           </span>
           <span
-            className={` ${selectState[2] && "selected"}`}
+            className={`z-[3] ${selectState[2] && "selected"}`}
             onClick={showCompleted}
           >
             Completed
