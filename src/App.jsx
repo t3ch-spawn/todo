@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "./components/Header";
 import List from "./components/List";
@@ -14,10 +14,16 @@ function App() {
     completed: false,
     active: true,
     closed: false,
+    exist: true,
   });
   const [inpArr, setInpArr] = useState([]);
+  const [sortArr, setSortArr] = useState([]);
   let compList = [];
   const [itemsRem, setItemsRem] = useState(0);
+
+  useEffect(() => {
+    setSortArr(inpArr.slice());
+  }, [inpArr]);
 
   // function that receives typed input from child component
   function inpAcceptor(receivedInp) {
@@ -54,10 +60,6 @@ function App() {
       };
     });
 
-    // compList = inpArr.filter((curr) => {
-    //   return curr.completed === false;
-    // });
-    // setItemsRem(compList.length + 1);
     numItemsRem(1);
   }
 
@@ -76,27 +78,35 @@ function App() {
           ...prevObj,
         };
       });
-
-      // compList = inpArr.filter((curr) => {
-      //   return curr.completed === false;
-      // });
-      // setItemsRem(compList.length);
       numItemsRem(0);
 
       return prevArr;
     });
   }
 
-  // function that removes a list item
+  // function that removes a list item in copy array and original array
   function handleRemove(event) {
-    setInpArr((prevArr) => {
+    let found;
+
+    setSortArr((prevArr) => {
       let filterList;
       prevArr.forEach((curr, i) => {
         if (event.target.parentElement.dataset.idNum == i) {
           curr.closed = true;
           curr.completed = true;
+          found = inpArr.find((curr2) => {
+            return curr2.input === curr.input;
+          });
         }
       });
+
+      // finding element that was removed in the sort array and removing it from original array
+      setInpArr((prev) => {
+        prev.splice(prev.indexOf(found), 1);
+
+        return prev;
+      });
+
       numItemsRem(0);
 
       filterList = prevArr.filter((curr2) => {
@@ -107,17 +117,82 @@ function App() {
     });
   }
 
-  const actualList = inpArr.map((curr, i) => {
+  // function that clears all todos that are completed
+  function clearCompleted() {
+    setInpArr((prevArr) => {
+      let filterList;
+
+      numItemsRem(0);
+
+      filterList = prevArr.filter((curr2) => {
+        return curr2.completed === false;
+      });
+
+      return filterList;
+    });
+  }
+
+  // function that shows all todos that are not completed, using a copy array
+  function showActive() {
+    setSortArr(inpArr.slice());
+
+    setSortArr((prevArr) => {
+      let filterList;
+
+      numItemsRem(0);
+
+      filterList = prevArr.filter((curr2) => {
+        return curr2.active === true;
+      });
+
+      return filterList;
+    });
+  }
+
+  // function that shows all todos available, using a copy array
+
+  function showAll() {
+    setSortArr(inpArr.slice());
+    setSortArr((prevArr) => {
+      let filterList;
+
+      numItemsRem(0);
+
+      filterList = prevArr.filter((curr2) => {
+        return curr2.closed === false;
+      });
+
+      return filterList;
+    });
+  }
+
+  // function that shows all todos that are completed, using a copy array
+  function showCompleted() {
+    setSortArr(inpArr.slice());
+    setSortArr((prevArr) => {
+      let filterList;
+
+      numItemsRem(0);
+
+      filterList = prevArr.filter((curr2) => {
+        return curr2.completed === true;
+      });
+
+      return filterList;
+    });
+  }
+
+  const actualList = sortArr.map((curr, i) => {
     return (
       <li
         key={i}
         data-id-num={i}
         className="bg-cardBg flex justify-between items-center gap-3 p-[10px] w-[100%] relative"
       >
-        <span className="flex justify-start w-[100%] gap-3">
+        <span className="flex justify-start items-center w-[100%] gap-3">
           <span
             onClick={handleCompleted}
-            className="border-black border-2 cursor-pointer rounded-[50%] h-[25px] min-w-[25px] flex justify-center items-center"
+            className="border-black border-2 rounded-[50%] h-[25px] min-w-[25px] flex justify-center items-center"
           >
             <img
               className="pointer-events-none"
@@ -163,21 +238,23 @@ function App() {
             </span>
             {/* container to sort arrays 1*/}
             <div className="sort1 flex gap-2 cursor-pointer">
-              <span>All</span>
-              <span>Active</span>
-              <span>Completed</span>
+              <span onClick={showAll}>All</span>
+              <span onClick={showActive}>Active</span>
+              <span onClick={showCompleted}>Completed</span>
             </div>
 
             {/* clear complelted */}
-            <span className="cursor-pointer">Clear completed</span>
+            <span onClick={clearCompleted} className="cursor-pointer">
+              Clear completed
+            </span>
           </div>
         </List>
-               {/* container to sort arrays 2*/}
-               <div className="sort2 cursor-pointer bg-cardBg flex justify-center items-center gap-5 p-[10px] w-[100%] relative text-textCol2">
-              <span>All</span>
-              <span>Active</span>
-              <span>Completed</span>
-            </div>
+        {/* container to sort arrays 2*/}
+        <div className="sort2 cursor-pointer bg-cardBg flex justify-center items-center gap-5 p-[10px] w-[100%] relative text-textCol2">
+          <span>All</span>
+          <span>Active</span>
+          <span>Completed</span>
+        </div>
       </Card>
     </div>
   );
