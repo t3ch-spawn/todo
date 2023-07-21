@@ -117,7 +117,7 @@ function App() {
         <span className="flex justify-start w-[100%] gap-3">
           <span
             onClick={handleCompleted}
-            className="border-black border-2 cursor-pointer rounded-[50%] h-[25px] w-[25px] flex justify-center items-center"
+            className="border-black border-2 cursor-pointer rounded-[50%] h-[25px] min-w-[25px] flex justify-center items-center"
           >
             <img
               className="pointer-events-none"
@@ -125,7 +125,7 @@ function App() {
               alt=""
             />
           </span>
-          <p className={`text-textCol ${curr.completed && "active"} `}>
+          <p className={`text-textCol ${curr.completed && "active"} break-all`}>
             {curr.input}
           </p>
         </span>
