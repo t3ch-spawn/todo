@@ -29,10 +29,16 @@
   background-position: left;
   background-size: cover;
   background-repeat: no-repeat;
+
+}
+span{
+    background-color: linear-gradient(to right, hsl(192, 100%, 67%) , hsl(280, 87%, 65%));
+
 }
 
 .active {
   text-decoration: line-through;
+  color: hsl(233, 14%, 35%);
 }
 
 .selected{

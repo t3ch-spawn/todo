@@ -201,12 +201,15 @@ function App() {
       <li
         key={i}
         data-id-num={i}
-        className="bg-cardBg flex justify-between items-center gap-3 p-[10px] w-[100%] relative"
+        className="bg-cardBg flex justify-between items-center gap-3 py-[20px] px-[15px] w-[100%] relative"
       >
         <span className="flex justify-start items-center w-[100%] gap-3">
           <span
             onClick={handleCompleted}
-            className="border-black border-2 rounded-[50%] h-[25px] min-w-[25px] flex justify-center items-center"
+            style={{
+              backgroundImage : ` ${curr.completed ? 'linear-gradient(to right, hsl(192, 100%, 67%) , hsl(280, 87%, 65%))' : ''}`,
+            }}
+            className="border-lineCol border-2 rounded-[50%] h-[25px] min-w-[25px] flex justify-center items-center cursor-pointer"
           >
             <img
               className="pointer-events-none"
@@ -224,6 +227,7 @@ function App() {
           alt=""
           onClick={handleRemove}
         />
+        <hr className="absolute bottom-0 left-0 w-[100%] bg-lineCol border-none h-[1px]"/>
       </li>
     );
   });

@@ -8,8 +8,8 @@ function Input(props) {
   return (
     <>
       {/* todo input */}
-      <div className="  bg-cardBg flex justify-start items-center gap-3 py-[20px] px-[10px]">
-        <span className="border-black border-2 rounded-[50%] flex justify-center items-center p-3"></span>
+      <div className="  bg-cardBg flex justify-start items-center gap-3 py-[20px] px-[15px]">
+        <span className="border-lineCol border-2 rounded-[50%] flex justify-center items-center p-3"></span>
         <input
           onChange={() => {
             props.inpPasser(myInp.current.value);

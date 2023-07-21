@@ -12,6 +12,7 @@ export default {
         textCol: "hsl(234, 39%, 85%)",
         textCol2: "hsl(234, 11%, 52%)",
         brBlue: "hsl(220, 98%, 61%)",
+        lineCol: "hsl(237, 14%, 26%)",
       },
 
       screens: {
